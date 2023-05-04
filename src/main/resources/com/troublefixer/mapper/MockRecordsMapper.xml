@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.troublefixer.mapper.MockRecordsMapper">
+    <insert id="addListWithId">
+        insert into mockrecords
+        (
+            mock_id,
+            data_id,
+            error_type
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+            #{mockId},
+            #{item.dataId},
+            #{item.errorType}
+        )
+        </foreach>
+    </insert>
+</mapper>

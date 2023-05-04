@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.troublefixer.mapper.DefaultModelMapper">
+    <update id="updateId">
+        update defaultmodel set default_model_id = #{modelId};
+    </update>
+
+    <select id="selectId" resultType="java.lang.Integer">
+        select default_model_id from defaultmodel limit 1;
+    </select>
+</mapper>

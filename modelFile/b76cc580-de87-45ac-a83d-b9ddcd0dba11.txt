@@ -1,0 +1,91 @@
+CREATE TABLE BOOK
+(
+	book_id CHAR(10) NOT NULL,
+	book_name CHAR(8) NOT NULL,
+	publisher char(10) NOT NULL,
+	icon char(18) ,
+	price FLOAT NOT NULL,
+	count INTEGER NOT NULL,
+	PRIMARY KEY(bookId)
+)
+
+ CREATE TABLE Employee
+ (
+ 	em_id CHAR(10) NOT NULL,
+ 	em_password CHAR(8) NOT NULL,
+ 	em_name char(8) NOT NULL,
+ 	position char(10),
+ 	PRIMARY KEY(emId)
+ )
+
+CREATE TABLE Lackregs
+(
+	user_id CHAR(8) NOT NULL,
+	book_id CHAR(10) NOT NULL,
+	num INTEGER NOT NULL
+)
+
+CREATE TABLE Operation
+(
+	book_id CHAR(10) NOT NULL,
+	opera CHAR(2) NOT NULL,
+	date CHAR(18),
+	em_id char(10) NOT NULL,
+	count INTEGER,
+	CHECK (opera IN ('出库','入库'))
+)
+	
+CREATE TABLE USER
+(
+	user_id CHAR(8) NOT NULL,
+	user_password CHAR(8) NOT NULL,
+	major_class char(12) NOT NULL,
+	grade char(10) NOT NULL,
+	name char(10) NOT NULL,
+	PRIMARY KEY(userId)
+)
+
+CREATE TABLE Receipt
+(
+	rpt_id CHAR(10) NOT NULL,
+	book_id CHAR(10) NOT NULL,
+	count INTEGER NOT NULL,
+	user_id char(10) NOT NULL,
+	is_pick BOOLEAN NOT NULL,
+	PRIMARY KEY(rptId)
+)
+
+CREATE TABLE BuyBook
+(
+	order_id CHAR(10) NOT NULL,
+	book_id CHAR(10) NOT NULL,
+	num Integer NOT NULL,
+	buyDate DATE,
+	is_receive BOOLEAN NOT NULL,
+	pay FLOAT NOT NULL,
+	PRIMARY KEY(orderId)
+)
+INSERT book(book_id,book_name,publisher,price,count) VALUES ('1000001','数据库原理','人民教育出版社','20.8',120)
+INSERT book(book_id,book_name,publisher,price,count) VALUES ('1000002','数据结构','河海大学出版社','12.8',367)
+
+INSERT buybook(order_id,book_id,num,buy_date,is_receive,pay) VALUES ('4562812341','1000001',120,'2022-12-30',1,2496)
+INSERT buybook(order_id,book_id,num,buy_date,is_receive,pay) VALUES ('4562812342','1000002',367,'2022-12-30',1,4697.6)
+
+INSERT employee(em_id,em_password,em_name,position) VALUES ('12810215','12345678','管理员1','仓库管理员')
+INSERT employee(em_id,em_password,em_name,position) VALUES ('12810216','12345678','管理员2','教材订购员')
+
+INSERT lackregs(user_id,book_id,num) VALUES ('20628215','1000001',392)
+INSERT lackregs(user_id,book_id,num) VALUES ('20628216','1000002',261)
+
+INSERT operation(book_id,opera,date,em_id,count) VALUES ('1000001','入库',2022-12-30,'12810215',120)
+INSERT operation(book_id,opera,date,em_id,count) VALUES ('1000002','入库',2022-12-30,'12810215',367)
+
+INSERT receipt(rpt_id,book_id,count,user_id,is_pick) VALUES ('38621521','1000001',120,'20628215',1)
+INSERT receipt(rpt_id,book_id,count,user_id,is_pick) VALUES ('38621522','1000002',367,'20628216',1)
+
+INSERT user(user_id,user_password,major_class,grade,name) VALUES ('20628215','43991234','计科二班','2020','学生1')
+INSERT user(user_id,user_password,major_class,grade,name) VALUES ('20628216','70811234','计科二班','2020','学生2')
+
+ALTER TABLE lackregs add FOREIGN key(user_id) REFERENCES user(user_id)
+
+ALTER TABLE operation add FOREIGN key(book_id) REFERENCES book(book_id)
